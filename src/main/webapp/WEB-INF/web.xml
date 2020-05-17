@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns="http://java.sun.com/xml/ns/javaee"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
+	version="2.5">
+	<display-name>meishi</display-name>
+	<welcome-file-list>
+		<welcome-file>index.jsp</welcome-file>
+	</welcome-file-list>
+
+	<!-- 事务处理拦截器 -->
+	<filter>
+		<filter-name>TransactionFilter</filter-name>
+		<filter-class>com.ithuangyonghua.filter.TransactionFilter</filter-class>
+	</filter>
+	<filter-mapping>
+		<filter-name>TransactionFilter</filter-name>
+		<url-pattern>/*</url-pattern>
+	</filter-mapping>
+
+
+	<!--后台管理拦截器 -->
+	<filter>
+		<filter-name>ManagerFilter</filter-name>
+		<filter-class>com.ithuangyonghua.filter.ManagerFilter</filter-class>
+	</filter>
+	<filter-mapping>
+		<filter-name>ManagerFilter</filter-name>
+		<url-pattern>/jsp/manager/*</url-pattern>
+		<url-pattern>/manager/FoodServlet</url-pattern>
+		<url-pattern>/manager/ManagerOrderServlet</url-pattern>
+	</filter-mapping>
+
+	<filter>
+		<filter-name>KeepLoginFilter</filter-name>
+		<filter-class>com.ithuangyonghua.filter.KeepLoginFilter</filter-class>
+	</filter>
+	<filter-mapping>
+		<filter-name>KeepLoginFilter</filter-name>
+		<url-pattern>/jsp/cart/*</url-pattern>
+		<url-pattern>/CartServlet/*</url-pattern>
+		<url-pattern>/OrderServlet/*</url-pattern>
+	</filter-mapping>
+	
+	<!-- 后台订单模块 -->
+	<servlet>
+		<servlet-name>ManagerOrderServlet</servlet-name>
+		<servlet-class>com.ithuangyonghua.servlet.ManagerOrderServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>ManagerOrderServlet</servlet-name>
+		<url-pattern>/manager/ManagerOrderServlet</url-pattern>
+	</servlet-mapping>
+
+
+	<!-- 订单模块 -->
+	<servlet>
+		<servlet-name>OrderServlet</servlet-name>
+		<servlet-class>com.ithuangyonghua.servlet.OrderServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>OrderServlet</servlet-name>
+		<url-pattern>/client/OrderServlet</url-pattern>
+	</servlet-mapping>
+
+
+	<!-- 预定模块 -->
+	<servlet>
+		<servlet-name>CartServlet</servlet-name>
+		<servlet-class>com.ithuangyonghua.servlet.CartServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>CartServlet</servlet-name>
+		<url-pattern>/CartServlet</url-pattern>
+	</servlet-mapping>
+
+
+	<!-- 美食模块 -->
+	<servlet>
+		<servlet-name>FoodServlet</servlet-name>
+		<servlet-class>com.ithuangyonghua.servlet.FoodServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>FoodServlet</servlet-name>
+		<url-pattern>/manager/FoodServlet</url-pattern>
+	</servlet-mapping>
+
+	<!-- 用户模块 -->
+	<servlet>
+		<servlet-name>UserServlet</servlet-name>
+		<servlet-class>com.ithuangyonghua.servlet.UserServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>UserServlet</servlet-name>
+		<url-pattern>/UserServlet</url-pattern>
+	</servlet-mapping>
+
+	<!-- 前端首页 -->
+	<servlet>
+		<servlet-name>ClientIndexServlet</servlet-name>
+		<servlet-class>com.ithuangyonghua.servlet.ClientIndexServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>ClientIndexServlet</servlet-name>
+		<url-pattern>/client/ClientIndexServlet</url-pattern>
+	</servlet-mapping>
+	<!-- 验证码 -->
+	<servlet>
+		<servlet-name>KaptchaServlet</servlet-name>
+		<servlet-class>com.google.code.kaptcha.servlet.KaptchaServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>KaptchaServlet</servlet-name>
+		<url-pattern>/kaptcha.jpg</url-pattern>
+	</servlet-mapping>
+	
+	<!-- 统一异常处理  -->
+	<error-page>
+	   <error-code>404</error-code>
+	   <location>/jsp/error/error404.jsp</location>
+	</error-page>
+	
+	<error-page>
+	   <error-code>500</error-code>
+	   <location>/jsp/error/error500.jsp</location>
+	</error-page>
+	
+	
+</web-app>
